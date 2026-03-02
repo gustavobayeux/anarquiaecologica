@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Anarquia Ecológica - Imóveis P2P</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app" class="page">
+      <!-- Header -->
+      <header class="site-header">
+        <div class="header-inner">
+          <div class="logo">
+            <span class="logo-icon">🏡</span>
+            <span class="logo-text">Anarquia Ecológica</span>
+          </div>
+          <div class="header-search">
+            <input
+              id="top-search"
+              type="text"
+              placeholder="Buscar imóvel..."
+              class="input base-input"
+            />
+          </div>
+          <div class="header-actions">
+            <button id="advertiser-login-btn" class="btn ghost small">
+              Entrar anunciante
+            </button>
+            <button id="create-listing-btn" class="btn primary small hidden">Criar anúncio</button>
+            <button id="admin-link-btn" class="icon-btn" title="Admin">
+              ⚙
+            </button>
+            <button id="favorites-link-btn" class="icon-btn" title="Favoritos">
+              ❤
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main id="main-content">
+        <!-- Hero / landing view -->
+        <section id="landing-view" class="hero-wrapper">
+          <div class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+              <h1>Encontre seu lar sem burocracia</h1>
+              <p class="hero-subtitle">
+                Imóveis direto com proprietários. Sem intermediários. Sem taxas.
+              </p>
+              <div class="hero-search-card">
+                <div class="hero-search-row">
+                  <div class="field">
+                    <label for="search-query">O que você procura?</label>
+                    <input
+                      id="search-query"
+                      type="text"
+                      placeholder="Digite o que você procura..."
+                      class="input"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="search-city">Localização</label>
+                    <input
+                      id="search-city"
+                      type="text"
+                      placeholder="São Paulo, SP"
+                      class="input"
+                    />
+                  </div>
+                  <div class="field action">
+                    <button id="search-btn" class="btn primary large">
+                      Buscar
+                    </button>
+                  </div>
+                </div>
+                <div class="hero-filters">
+                  <button
+                    class="chip active"
+                    data-status="todos"
+                    id="filter-todos"
+                  >
+                    Todos
+                  </button>
+                  <button class="chip" data-status="lancamento">
+                    Lançamentos
+                  </button>
+                  <button class="chip" data-status="venda">
+                    Venda
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <section class="section properties-section">
+            <div class="section-header">
+              <h2>Conheça imóveis em destaque</h2>
+              <span id="results-count" class="section-subtitle"></span>
+            </div>
+            <div id="properties-grid" class="properties-grid">
+              <!-- Property cards injected by JS -->
+            </div>
+            <div class="section-footer">
+              <button id="load-more-btn" class="btn outline">
+                Ver mais imóveis
+              </button>
+            </div>
+          </section>
+        </section>
+
+        <!-- Admin view -->
+        <section id="admin-view" class="admin-view hidden">
+          <div class="admin-header">
+            <div>
+              <h2>Painel do Admin</h2>
+              <p id="admin-user-label" class="muted"></p>
+            </div>
+            <div class="admin-header-actions">
+              <button id="toggle-frutiger-btn" class="btn ghost small">
+                Alternar modo Frutiger
+              </button>
+              <button id="admin-logout-btn" class="btn ghost small">
+                Sair
+              </button>
+            </div>
+          </div>
+
+          <div class="admin-layout">
+            <div class="admin-panel">
+              <h3>Solicitações de destaque (PIX R$ 2)</h3>
+              <p class="muted">
+                Pagamento para <strong>gustavobayeux@gmail.com</strong> via PIX.
+                Após conferir o comprovante, aprove para 7 dias de destaque.
+              </p>
+              <div id="boosts-list" class="boosts-list">
+                <!-- Boost requests injected here -->
+              </div>
+            </div>
+            <div class="admin-panel">
+              <h3>Chat em tempo real</h3>
+              <div class="chat-window" id="admin-chat-window">
+                <div class="chat-messages" id="admin-chat-messages"></div>
+                <form id="admin-chat-form" class="chat-form">
+                  <input
+                    type="text"
+                    id="admin-chat-input"
+                    class="input"
+                    placeholder="Responder aos visitantes..."
+                    autocomplete="off"
+                  />
+                  <button class="btn primary small" type="submit">Enviar</button>
+                </form>
+              </div>
+            </div>
+            <div class="admin-panel">
+              <h3>Anunciantes</h3>
+              <p class="muted small">Gerencie contas de anunciantes</p>
+              <div id="users-list" class="boosts-list">
+                <!-- Users injected here -->
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Floating chat widget -->
+      <div id="chat-widget" class="chat-widget">
+        <button id="chat-toggle" class="chat-toggle">Chat</button>
+        <div id="chat-panel" class="chat-panel hidden">
+          <div class="chat-panel-header">
+            <span>Fale com o admin</span>
+            <button id="chat-close" class="icon-btn small">×</button>
+          </div>
+          <div id="chat-messages" class="chat-messages"></div>
+          <form id="chat-form" class="chat-form">
+            <input
+              id="chat-input"
+              type="text"
+              class="input"
+              placeholder="Digite sua mensagem..."
+              autocomplete="off"
+            />
+            <button class="btn primary small" type="submit">Enviar</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="site-footer">
+        <div class="footer-columns">
+          <div>
+            <h4>Anarquia Ecológica</h4>
+            <p class="muted">
+              Plataforma open source para encontrar imóveis direto com
+              proprietários. Sem intermediários. Sem taxas.
+            </p>
+          </div>
+          <div>
+            <h4>Contato</h4>
+            <p class="muted">
+              Admin Gustavo Bayeux<br />
+              Líder da Comunidade de Anunciantes<br />
+              <a href="mailto:gustavobayeux@gmail.com"
+                >gustavobayeux@gmail.com</a
+              >
+            </p>
+          </div>
+          <div>
+            <h4>Links</h4>
+            <ul class="footer-links">
+              <li><a href="#">Termos de Uso</a></li>
+              <li><a href="#">Privacidade</a></li>
+              <li><a href="https://github.com" target="_blank">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-legal">
+          <strong>AVISO LEGAL</strong>
+          <p class="muted">
+            Esta plataforma é apenas um classificador de imóveis. Não
+            intermediamos vendas, não verificamos documentação, não nos
+            responsabilizamos por negociações entre as partes. Verifique sempre
+            a documentação com um corretor registrado e, em caso de dúvida,
+            consulte um advogado.
+          </p>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Anarquia Ecológica — Open Source</span>
+        </div>
+      </footer>
+    </div>
+
+    <div id="login-modal" class="modal hidden">
+      <div class="modal-backdrop" id="login-backdrop"></div>
+      <div class="modal-content">
+        <button class="icon-btn small modal-close" id="login-close">×</button>
+        <h3>Entrar como anunciante</h3>
+        <form id="login-form" class="stacked-form">
+          <div class="field">
+            <label for="login-email">Email</label>
+            <input
+              id="login-email"
+              type="email"
+              class="input"
+              value="anunciante@example.com"
+            />
+          </div>
+          <div class="field">
+            <label for="login-password">Senha</label>
+            <input
+              id="login-password"
+              type="password"
+              class="input"
+              value="advertiser123"
+            />
+          </div>
+          <button class="btn primary full" type="submit">Entrar</button>
+          <p class="muted small">
+            Admin: acesse <code>/admin</code> com
+            <code>admin@example.com</code> / <code>admin123</code>.
+          </p>
+          <div id="login-error" class="error-text hidden"></div>
+        </form>
+      </div>
+    </div>
+
+    <div id="create-listing-modal" class="modal hidden">
+      <div class="modal-backdrop" id="create-backdrop"></div>
+      <div class="modal-content">
+        <button class="icon-btn small modal-close" id="create-close">×</button>
+        <h3>Criar novo anúncio</h3>
+        <form id="create-listing-form" class="stacked-form">
+          <div class="field">
+            <label for="create-title">Título</label>
+            <input id="create-title" class="input" />
+          </div>
+          <div class="field">
+            <label for="create-neighborhood">Bairro</label>
+            <input id="create-neighborhood" class="input" />
+          </div>
+          <div class="field">
+            <label for="create-city">Cidade</label>
+            <input id="create-city" class="input" value="São Paulo" />
+          </div>
+          <div class="field">
+            <label for="create-state">Estado</label>
+            <input id="create-state" class="input" value="SP" />
+          </div>
+          <div class="field">
+            <label for="create-price">Preço (R$)</label>
+            <input id="create-price" type="number" class="input" />
+          </div>
+          <div class="field">
+            <label for="create-status">Status</label>
+            <select id="create-status" class="input">
+              <option value="venda">Venda</option>
+              <option value="lancamento">Lançamento</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="create-image">URL da imagem</label>
+            <input id="create-image" class="input" placeholder="https://..." />
+          </div>
+          <button class="btn primary full" type="submit">Publicar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Admin login lightweight overlay when visiting /admin not authenticated -->
+    <div id="admin-login-overlay" class="admin-login-overlay hidden">
+      <div class="modal-content">
+        <h3>Login do Admin</h3>
+        <form id="admin-login-form" class="stacked-form">
+          <div class="field">
+            <label for="admin-login-email">Email</label>
+            <input
+              id="admin-login-email"
+              type="email"
+              class="input"
+              value="admin@example.com"
+            />
+          </div>
+          <div class="field">
+            <label for="admin-login-password">Senha</label>
+            <input
+              id="admin-login-password"
+              type="password"
+              class="input"
+              value="admin123"
+            />
+          </div>
+          <button class="btn primary full" type="submit">Entrar</button>
+          <div id="admin-login-error" class="error-text hidden"></div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
+

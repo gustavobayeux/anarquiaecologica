@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: anarquia-ecologica
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+
