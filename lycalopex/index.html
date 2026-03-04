@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lycalopex - Territorial Observation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Lycalopex</h1>
+        <p class="subtitle">Territorial Observation</p>
+    </header>
+
+    <div id="container">
+        <div id="map"></div>
+        <aside id="side-panel">
+            <div id="filters">
+                <h2>Filters</h2>
+                <label for="type-filter">Structure type</label>
+                <select id="type-filter">
+                    <option value="all">All</option>
+                    <option value="silo">Silo</option>
+                    <option value="warehouse">Warehouse</option>
+                    <option value="slaughterhouse">Slaughterhouse</option>
+                    <option value="other">Other</option>
+                </select>
+                <label for="age-filter">Company age (years)</label>
+                <select id="age-filter">
+                    <option value="all">All</option>
+                    <option value=">=30">>=30</option>
+                    <option value=">=20">>=20</option>
+                    <option value=">=10">>=10</option>
+                </select>
+                <label for="score-filter">Min. score</label>
+                <input type="number" id="score-filter" min="0" max="100" value="0">
+                <button id="apply-filters">Apply</button>
+            </div>
+            <div id="details">
+                <h2>Details</h2>
+                <div id="info">Click a marker for details</div>
+            </div>
+            <button id="export-csv">Export visible leads as CSV</button>
+        </aside>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Application scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/score.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
