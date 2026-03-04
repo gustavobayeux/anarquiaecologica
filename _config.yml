@@ -1,0 +1,27 @@
+# Jekyll configuration for Lycalopex project
+
+title: Lycalopex
+description: Territorial Observation - Mapping agro-industrial infrastructure
+url: https://gustavobayeux.github.io/anarquiaecologica
+
+# Build settings
+markdown: kramdown
+theme: null
+exclude:
+  - .git
+  - .gitignore
+  - README.md
+  - node_modules
+  - package.json
+  - package-lock.json
+
+# Output directory for built site
+destination: _site
+
+# Keep files as-is
+keep_files:
+  - lycalopex
+
+# Use the lycalopex folder as the static content
+include:
+  - lycalopex
